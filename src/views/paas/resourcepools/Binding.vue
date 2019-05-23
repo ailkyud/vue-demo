@@ -44,11 +44,6 @@
         </a-row>
       </a-form>
     </div>
-
-    <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="$refs.createModal.add()">新增</a-button>
-    </div>
-
     <s-table
       ref="table"
       size="default"
