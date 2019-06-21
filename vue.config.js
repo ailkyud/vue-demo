@@ -8,6 +8,11 @@ function resolve (dir) {
 // vue.config.js
 module.exports = {
   /*
+   publicPath: process.env.NODE_ENV === 'production'
+    ? '/dist/'
+    : '/',
+    */
+  /*
     Vue-cli3:
     Crashed when using Webpack `import()` #2463
     https://github.com/vuejs/vue-cli/issues/2463
@@ -28,7 +33,7 @@ module.exports = {
     ]
   },
 
-  chainWebpack: (config) => {
+  chainWebpack: config => {
     config.resolve.alias
       .set('@$', resolve('src'))
       .set('@api', resolve('src/api'))
@@ -73,7 +78,6 @@ module.exports = {
       less: {
         modifyVars: {
           /* less 变量覆盖，用于自定义 ant design 主题 */
-
           /*
           'primary-color': '#F5222D',
           'link-color': '#F5222D',
@@ -87,15 +91,27 @@ module.exports = {
 
   devServer: {
     // development server port 8000
-    port: 8000
-    // proxy: {
-    //   '/api': {
-    //     // target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-    //     ws: false,
-    //     changeOrigin: true
-    //   }
-    // }
+    port: 8000,
+    proxy: {
+      '/api/kafka': {
+        // target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
+        target: 'http://132.252.128.247:48099',
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/kafka': '/kafka'
+        }
+      },
+      '/api/redis': {
+        // target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
+        target: 'http://132.252.128.247:48099',
+        ws: false,
+        changeOrigin: true,
+        pathRewrite: {
+          '^/api/redis': '/redis'
+        }
+      }
+    }
   },
 
   // disable source map in production

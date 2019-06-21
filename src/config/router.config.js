@@ -39,7 +39,7 @@ export const asyncRouterMap = [
           {
             path: '/dashboard/app',
             name: 'DashboardApp',
-            component: () => import('@/views/dashboard/App'),
+            component: () => import('@/views/dashboard/cultivate/Index'),
             meta: { title: '演练大屏', keepAlive: true, permission: ['dashboard'] }
           }
         ]

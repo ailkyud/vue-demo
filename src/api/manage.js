@@ -87,3 +87,13 @@ export function getResourcePoolsTree (parameter) {
     params: parameter
   })
 }
+
+export function gettest (parameter) {
+  return axios({
+    url: parameter,
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    }
+  })
+}
